@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programming Tasks</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        padding: 20px;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+      section {
+        margin: 20px 0;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        margin-top: 0;
+      }
+      input,
+      button,
+      select {
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+      }
+      button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #555;
+      }
+      .result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Programming Tasks</h1>
+    </header>
+    <div class="container">
+      <!-- Leap Year Checker -->
+      <section>
+        <h2>Leap Year Checker</h2>
+        <input type="number" id="yearInput" placeholder="Enter a year" />
+        <button onclick="checkLeapYear()">Check Leap Year</button>
+        <div id="leapYearResult" class="result"></div>
+      </section>
+
+      <!-- Ticket Pricing -->
+      <section>
+        <h2>Ticket Pricing</h2>
+        <input type="number" id="ageInput" placeholder="Enter your age" />
+        <button onclick="calculateTicketPrice()">Get Ticket Price</button>
+        <div id="ticketPriceResult" class="result"></div>
+      </section>
+
+      <!-- Weather Clothing Adviser -->
+      <section>
+        <h2>Weather Clothing Adviser</h2>
+        <input
+          type="number"
+          id="temperatureInput"
+          placeholder="Enter the temperature (°C)"
+        />
+        <select id="rainSelect">
+          <option value="true">Raining</option>
+          <option value="false">Not Raining</option>
+        </select>
+        <button onclick="adviseClothing()">Get Clothing Advice</button>
+        <div id="clothingAdviceResult" class="result"></div>
+      </section>
+
+      <!-- Fibonacci Sequence -->
+      <section>
+        <h2>Fibonacci Sequence</h2>
+        <input
+          type="number"
+          id="fibonacciInput"
+          placeholder="Enter n for Fibonacci(n)"
+        />
+        <button onclick="calculateFibonacci()">Get Fibonacci Number</button>
+        <div id="fibonacciResult" class="result"></div>
+      </section>
+
+      <!-- Palindrome Checker -->
+      <section>
+        <h2>Palindrome Checker</h2>
+        <input type="text" id="palindromeInput" placeholder="Enter a string" />
+        <button onclick="checkPalindrome()">Check Palindrome</button>
+        <div id="palindromeResult" class="result"></div>
+      </section>
+
+      <!-- Power Function -->
+      <section>
+        <h2>Power Function</h2>
+        <input type="number" id="baseInput" placeholder="Enter base number" />
+        <input type="number" id="exponentInput" placeholder="Enter exponent" />
+        <button onclick="calculatePower()">Calculate Power</button>
+        <div id="powerResult" class="result"></div>
+      </section>
+    </div>
+
+    <script>
+      // Leap Year Checker
+      function checkLeapYear() {
+        const year = parseInt(document.getElementById("yearInput").value);
+        let result = "";
+        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+          result = `${year} is a leap year.`;
+        } else {
+          result = `${year} is not a leap year.`;
+        }
+        document.getElementById("leapYearResult").innerText = result;
+      }
+
+      // Ticket Pricing
+      function calculateTicketPrice() {
+        const age = parseInt(document.getElementById("ageInput").value);
+        let price = "";
+        if (age <= 12) {
+          price = "$10";
+        } else if (age >= 13 && age <= 17) {
+          price = "$15";
+        } else if (age >= 18) {
+          price = "$20";
+        } else {
+          price = "Invalid age";
+        }
+        document.getElementById(
+          "ticketPriceResult"
+        ).innerText = `Ticket Price: ${price}`;
+      }
+
+      // Weather Clothing Adviser
+      function adviseClothing() {
+        const temperature = parseInt(
+          document.getElementById("temperatureInput").value
+        );
+        const isRaining =
+          document.getElementById("rainSelect").value === "true";
+        let advice = "";
+
+        if (temperature < 10) {
+          advice = "Wear a warm coat.";
+        } else if (temperature >= 10 && temperature <= 20) {
+          advice = "Wear a jacket.";
+        } else {
+          advice = "Wear light clothing.";
+        }
+
+        if (isRaining) {
+          advice += " Also, bring an umbrella.";
+        }
+
+        document.getElementById("clothingAdviceResult").innerText = advice;
+      }
+
+      // Fibonacci Sequence
+      function calculateFibonacci() {
+        const n = parseInt(document.getElementById("fibonacciInput").value);
+        const result = fibonacci(n);
+        document.getElementById(
+          "fibonacciResult"
+        ).innerText = `Fibonacci(${n}) = ${result}`;
+      }
+
+      function fibonacci(n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+      }
+
+      // Palindrome Checker
+      function checkPalindrome() {
+        const str = document
+          .getElementById("palindromeInput")
+          .value.replace(/[^a-zA-Z0-9]/g, "")
+          .toLowerCase();
+        const result = isPalindrome(str);
+        document.getElementById("palindromeResult").innerText = result
+          ? "It is a palindrome."
+          : "It is not a palindrome.";
+      }
+
+      function isPalindrome(str) {
+        if (str.length <= 1) return true;
+        if (str[0] !== str[str.length - 1]) return false;
+        return isPalindrome(str.substring(1, str.length - 1));
+      }
+
+      // Power Function
+      function calculatePower() {
+        const base = parseInt(document.getElementById("baseInput").value);
+        const exponent = parseInt(
+          document.getElementById("exponentInput").value
+        );
+        const result = power(base, exponent);
+        document.getElementById(
+          "powerResult"
+        ).innerText = `${base} ^ ${exponent} = ${result}`;
+      }
+
+      function power(base, exponent) {
+        if (exponent === 0) return 1;
+        return base * power(base, exponent - 1);
+      }
+    </script>
+  </body>
+</html>
